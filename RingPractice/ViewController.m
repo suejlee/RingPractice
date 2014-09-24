@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet RingView *ringView;
 @property (weak, nonatomic) IBOutlet UILabel *progressPercentage;
 @property (weak, nonatomic) IBOutlet UILabel *progressTime;
 @property (weak, nonatomic) IBOutlet UILabel *firstSpeedLabel;
@@ -22,27 +23,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)run:(id)sender {
+    [self.ringView runOneFrom:_firstSlider.value To:_secondSlider.value animated:YES];
+
 }
 
 - (IBAction)firstSpeed:(id)sender {
-    self.firstSpeedLabel.text = [NSString stringWithFormat:@"%.1f", self.firstSlider.value];
+    [self updateUI];
+//    [self.ringView setFirstStart:self.firstSlider.value];
 }
 
 - (IBAction)secondSpeed:(id)sender {
-    self.secondSpeedLabel.text = [NSString stringWithFormat:@"%.1f", self.secondSlider.value];
-
+    [self updateUI];
+//    [self.ringView setFirstEnd:self.secondSlider.value];
 }
 
+- (IBAction)reset:(id)sender {
+    [self.ringView runOneFrom:0 To:0 animated:NO];
+}
 
+- (void) updateUI {
+    self.firstSpeedLabel.text = [NSString stringWithFormat:@"%.2f", self.firstSlider.value];
+    self.secondSpeedLabel.text = [NSString stringWithFormat:@"%.2f", self.secondSlider.value];
 
+    [self.ringView setFirstSlider:self.firstSlider.value];
+    [self.ringView setSelf_progress:self.secondSlider.value];
+}
 
 @end

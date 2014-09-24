@@ -55,7 +55,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="tIw-JL-7IO">
+                            <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tIw-JL-7IO">
                                 <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
                                 <connections>
                                     <action selector="firstSpeed:" destination="BYZ-38-t0r" eventType="valueChanged" id="Jaf-uF-7w9"/>
@@ -67,7 +67,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="5ge-Fh-aOt">
+                            <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="5ge-Fh-aOt">
                                 <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
                                 <connections>
                                     <action selector="secondSpeed:" destination="BYZ-38-t0r" eventType="valueChanged" id="fPN-mG-6Pa"/>
@@ -101,8 +101,20 @@
                                     <rect key="frame" x="223" y="383" width="70" height="21"/>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBU-Xx-jJb">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="25" y="510" width="40" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ARW-r9-t1H"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.84313732389999996" green="0.89019614459999996" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="dkb-2q-hWL" firstAttribute="trailing" secondItem="tIw-JL-7IO" secondAttribute="trailing" id="0dZ-ai-aPe"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="l9d-UX-YBV" secondAttribute="bottom" constant="126" id="2n1-Ld-jz2"/>
@@ -140,6 +152,7 @@
                                 <exclude reference="5ge-Fh-aOt"/>
                                 <exclude reference="7h7-cQ-MiN"/>
                                 <exclude reference="7cr-Br-seM"/>
+                                <exclude reference="ZBU-Xx-jJb"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="0dZ-ai-aPe"/>
@@ -179,6 +192,7 @@
                                 <include reference="5ge-Fh-aOt"/>
                                 <include reference="7h7-cQ-MiN"/>
                                 <include reference="7cr-Br-seM"/>
+                                <include reference="ZBU-Xx-jJb"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="0dZ-ai-aPe"/>
@@ -214,6 +228,7 @@
                         <outlet property="firstSpeedLabel" destination="0r1-p8-WkP" id="LBk-oO-MxH"/>
                         <outlet property="progressPercentage" destination="7h7-cQ-MiN" id="sST-cO-z8K"/>
                         <outlet property="progressTime" destination="7cr-Br-seM" id="Kdc-F2-M0M"/>
+                        <outlet property="ringView" destination="dkb-2q-hWL" id="3tK-4g-WnL"/>
                         <outlet property="secondSlider" destination="5ge-Fh-aOt" id="XX0-LF-NDy"/>
                         <outlet property="secondSpeedLabel" destination="l9d-UX-YBV" id="Hhn-md-Hss"/>
                     </connections>
