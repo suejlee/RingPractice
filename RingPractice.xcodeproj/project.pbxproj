@@ -14,6 +14,7 @@
 		BDB63DA519D28BFB003027D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDB63DA419D28BFB003027D8 /* Images.xcassets */; };
 		BDB63DA819D28BFB003027D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB63DA619D28BFB003027D8 /* LaunchScreen.xib */; };
 		BDB63DB419D28BFB003027D8 /* RingPracticeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63DB319D28BFB003027D8 /* RingPracticeTests.m */; };
+		BDB63DBF19D28D01003027D8 /* RingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63DBE19D28D01003027D8 /* RingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		BDB63DAD19D28BFB003027D8 /* RingPracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingPracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB63DB219D28BFB003027D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDB63DB319D28BFB003027D8 /* RingPracticeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingPracticeTests.m; sourceTree = "<group>"; };
+		BDB63DBD19D28D01003027D8 /* RingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingView.h; sourceTree = "<group>"; };
+		BDB63DBE19D28D01003027D8 /* RingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				BDB63D9E19D28BFB003027D8 /* ViewController.h */,
 				BDB63D9F19D28BFB003027D8 /* ViewController.m */,
 				BDB63DA119D28BFB003027D8 /* Main.storyboard */,
+				BDB63DBD19D28D01003027D8 /* RingView.h */,
+				BDB63DBE19D28D01003027D8 /* RingView.m */,
 				BDB63DA419D28BFB003027D8 /* Images.xcassets */,
 				BDB63DA619D28BFB003027D8 /* LaunchScreen.xib */,
 				BDB63D9719D28BFB003027D8 /* Supporting Files */,
@@ -219,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDB63DBF19D28D01003027D8 /* RingView.m in Sources */,
 				BDB63DA019D28BFB003027D8 /* ViewController.m in Sources */,
 				BDB63D9D19D28BFB003027D8 /* AppDelegate.m in Sources */,
 				BDB63D9A19D28BFB003027D8 /* main.m in Sources */,
@@ -348,6 +354,7 @@
 				INFOPLIST_FILE = RingPractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -358,6 +365,7 @@
 				INFOPLIST_FILE = RingPractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
