@@ -13,7 +13,6 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) float firstDuration;
 @property (nonatomic, assign) float secondDuration;
-//@property (nonatomic, strong) NSNumber *repetition;
 @property (nonatomic, assign) int firstRepetition;
 @property (nonatomic, assign) int secondRepetition;
 

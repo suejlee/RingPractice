@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *label2;
 @property (weak, nonatomic) IBOutlet UILabel *rep1;
 @property (weak, nonatomic) IBOutlet UILabel *rep2;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
 
 @end
 
@@ -34,9 +36,15 @@
     self.label2.text = [NSString stringWithFormat:@"%.2f", self.secondDuration];
     self.rep1.text = [NSString stringWithFormat:@"%d", self.firstRepetition];
     self.rep2.text = [NSString stringWithFormat:@"%d", self.secondRepetition];
+    self.timeLabel.text = [NSString stringWithFormat:@"%f", 0.0];
     
-    // Do any additional setup after loading the view.
+//    [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 }
+
+- (void) handleTimer:(NSTimer *)timer {
+    self.timeLabel.text = timer.description;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
