@@ -1,5 +1,5 @@
 //
-//  ItemListTVC.h
+//  MainTVC.h
 //  RingPractice
 //
 //  Created by Sue Lee on 9/24(Wednesday).
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ItemListTVC : UITableViewController
-
-@property (strong, nonatomic) NSMutableArray *workoutArray;
-
+@interface MainTVC : UITableViewController
+@property (strong, nonatomic) NSMutableArray *bodyPartList;
 @end

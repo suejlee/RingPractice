@@ -61,7 +61,6 @@
     _label1.font = [UIFont systemFontOfSize:(self.bounds.size.width / 10)];
     _label1.textColor = [UIColor redColor];
     _label1.backgroundColor = [UIColor grayColor];
-//    _label1.frame = self.bounds;
     [self addSubview:_label1];
 }
 
@@ -92,7 +91,6 @@
         }
     }
 }
-
 
 - (void)animateProgress:(CADisplayLink *)displayLink
 {

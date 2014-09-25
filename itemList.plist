@@ -3,44 +3,145 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>workoutNameKey</key>
-		<string>Crunch</string>
-		<key>startKey</key>
-		<real>0.2</real>
-		<key>endKey</key>
-		<real>0.8</real>
-		<key>repetitionKey</key>
-		<integer>20</integer>
+		<key>body</key>
+		<string>core</string>
+		<key>detail</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Crunch</string>
+				<key>start</key>
+				<real>0.2</real>
+				<key>end</key>
+				<real>0.8</real>
+				<key>repetition</key>
+				<integer>20</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Push up</string>
+				<key>start</key>
+				<real>0.1</real>
+				<key>end</key>
+				<real>0.3</real>
+				<key>repetition</key>
+				<integer>15</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Plank</string>
+				<key>start</key>
+				<real>0.7</real>
+				<key>end</key>
+				<integer>1</integer>
+				<key>repetition</key>
+				<integer>18</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Jumping Jacks</string>
+				<key>start</key>
+				<real>0.5</real>
+				<key>end</key>
+				<real>0.7</real>
+				<key>repetition</key>
+				<integer>10</integer>
+			</dict>
+		</array>
 	</dict>
 	<dict>
-		<key>workoutNameKey</key>
-		<string>Push up</string>
-		<key>startKey</key>
-		<real>0.1</real>
-		<key>endKey</key>
-		<real>0.3</real>
-		<key>repetitionKey</key>
-		<integer>15</integer>
+		<key>body</key>
+		<string>Upper Body</string>
+		<key>detail</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Chest Press</string>
+				<key>start</key>
+				<real>0.2</real>
+				<key>end</key>
+				<real>0.8</real>
+				<key>repetition</key>
+				<integer>20</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Dumbbell Flys</string>
+				<key>start</key>
+				<real>0.1</real>
+				<key>end</key>
+				<real>0.3</real>
+				<key>repetition</key>
+				<integer>15</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Boxer</string>
+				<key>start</key>
+				<real>0.7</real>
+				<key>end</key>
+				<integer>1</integer>
+				<key>repetition</key>
+				<integer>18</integer>
+			</dict>
+		</array>
 	</dict>
 	<dict>
-		<key>workoutNameKey</key>
-		<string>Plank</string>
-		<key>startKey</key>
-		<real>0.7</real>
-		<key>endKey</key>
-		<integer>1</integer>
-		<key>repetitionKey</key>
-		<integer>18</integer>
-	</dict>
-	<dict>
-		<key>workoutNameKey</key>
-		<string>Jumping Jacks</string>
-		<key>startKey</key>
-		<real>0.5</real>
-		<key>endKey</key>
-		<real>0.7</real>
-		<key>repetitionKey</key>
-		<integer>10</integer>
+		<key>body</key>
+		<string>Lower Body</string>
+		<key>detail</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Bridges</string>
+				<key>start</key>
+				<real>0.2</real>
+				<key>end</key>
+				<real>0.8</real>
+				<key>repetition</key>
+				<integer>20</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Squats</string>
+				<key>start</key>
+				<real>0.1</real>
+				<key>end</key>
+				<real>0.3</real>
+				<key>repetition</key>
+				<integer>15</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Lunges</string>
+				<key>start</key>
+				<real>0.7</real>
+				<key>end</key>
+				<integer>1</integer>
+				<key>repetition</key>
+				<integer>18</integer>
+			</dict>
+            <dict>
+                <key>name</key>
+                <string>Step</string>
+                <key>start</key>
+                <real>0.7</real>
+                <key>end</key>
+                <integer>1</integer>
+                <key>repetition</key>
+                <integer>18</integer>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Step-Ups</string>
+                <key>start</key>
+                <real>0.7</real>
+                <key>end</key>
+                <integer>1</integer>
+                <key>repetition</key>
+                <integer>18</integer>
+            </dict>
+        </array>
 	</dict>
 </array>
 </plist>

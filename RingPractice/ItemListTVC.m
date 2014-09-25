@@ -17,24 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Core workout"; 
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"itemList" ofType:@"plist"];
-    NSArray *workoutItems = [NSArray arrayWithContentsOfFile:path];
-    
-    self.workoutArray = [[NSMutableArray alloc] init];
-    
-    NSDictionary *singleItem;
-    
-    for (singleItem in workoutItems) {
-        WorkoutItem *newItem = [[WorkoutItem alloc] init];
-        newItem.name = [singleItem objectForKey:@"workoutNameKey"];
-        newItem.start = [[singleItem objectForKey:@"startKey"] floatValue];
-        newItem.end = [[singleItem objectForKey:@"endKey"] floatValue];
-        newItem.repetition = [[singleItem objectForKey:@"repetitionKey"] integerValue];
-        
-        [self.workoutArray addObject:newItem];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,14 +39,22 @@
     static NSString *CellIdentifier = @"ItemCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    WorkoutItem *workoutItem = self.workoutArray[indexPath.row];
+    NSDictionary *item = self.workoutArray[indexPath.row];
+    NSString *name = [item objectForKey:@"name"];
+    float start = [[item objectForKey:@"start"] floatValue];
+    float end = [[item objectForKey:@"end"] floatValue];
+    int repetition = [[item objectForKey:@"repetiiton"] integerValue];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.2f,%.2f,%d)", workoutItem.name, workoutItem.start, workoutItem.end, workoutItem.repetition];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.2f,%.2f,%d)", name, start, end,repetition];
     return cell;
 }
 
-- (void)prepareForTheRing:(RingViewController *)vc start:(float)start end:(float)end Name:(NSString *)name
-{
+- (void)prepareForTheRing:(RingViewController *)vc with:(NSDictionary *)item{
+    
+    NSString *name = [item objectForKey:@"name"];
+    float start = [[item objectForKey:@"start"] floatValue];
+    float end = [[item objectForKey:@"end"] floatValue];
+
     vc.title = name;
     vc.initStartValue = start;
     vc.initEndValue = end;
@@ -78,17 +68,15 @@
     if (indexPath) {
         if ([segue.identifier isEqualToString:@"RingView"]) {
             if ([segue.destinationViewController isKindOfClass:[RingViewController class]]) {
-                WorkoutItem *workoutItem = self.workoutArray[indexPath.row];
 
-                [self prepareForTheRing:segue.destinationViewController
-                                    start:workoutItem.start
-                                    end:workoutItem.end
-                                   Name:workoutItem.name
-                 ];
+                NSDictionary *item = self.workoutArray[indexPath.row];
+                
+                [self prepareForTheRing:segue.destinationViewController with:item];
                 
             }
         }
-    }}
+    }
+}
 
 
 @end
