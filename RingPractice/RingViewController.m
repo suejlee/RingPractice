@@ -27,10 +27,10 @@
 }
 
 - (IBAction)run:(id)sender {
-    [self.ringView runOneFrom:_startValue.value To:_endValue.value animated:YES];
+    [self.ringView runOneFrom:self.startValue.value To:self.endValue.value animated:YES];
 }
 - (IBAction)nonAnimatedRun:(id)sender {
-    [self.ringView runOneFrom:_startValue.value To:_endValue.value animated:NO];
+    [self.ringView runOneFrom:self.startValue.value To:self.endValue.value animated:NO];
 
 }
 
@@ -50,8 +50,8 @@
     self.startLabel.text = [NSString stringWithFormat:@"%.2f", self.startValue.value];
     self.endLabel.text = [NSString stringWithFormat:@"%.2f", self.endValue.value];
 
-    [self.ringView setStartPosition:_startValue.value];
-    [self.ringView setCurrentPosition:_endValue.value];
+    [self.ringView setStartPosition:self.startValue.value];
+    [self.ringView setCurrentPosition:self.endValue.value];
     [self reset:nil];
 }
 
