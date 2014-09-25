@@ -13,9 +13,9 @@
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, retain) CAShapeLayer *backgroundInLayout;
 @property (nonatomic, retain) CAShapeLayer *progressInLayout;
-@property (nonatomic, retain) CAShapeLayer *backgroundOutLayer;
-@property (nonatomic, retain) CAShapeLayer *progressOutLayer;
-@property (nonatomic, assign) CGFloat current2;
+//@property (nonatomic, retain) CAShapeLayer *backgroundOutLayer;
+//@property (nonatomic, retain) CAShapeLayer *progressOutLayer;
+//@property (nonatomic, assign) CGFloat current2;
 @property (nonatomic, retain) UILabel *label1;
 @property (nonatomic, assign) CGFloat duration;
 
@@ -35,7 +35,7 @@
 
 
 - (void) setup {
-    _self_progress = 0;
+    _currentPosition = 0;
     _duration = 1; // 2 sec
     self.backgroundColor = [UIColor yellowColor];
     
@@ -68,7 +68,7 @@
 #pragma mark The animation part
 
 - (void)runOneFrom:(CGFloat)from To:(CGFloat)to animated:(BOOL)animated{
-    if (_self_progress == to) { // I am already done
+    if (_currentPosition == to) { // I am already done
         return;
     }
     if (animated == NO) { // when I am moving the slider manually
@@ -76,13 +76,13 @@
             [_displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
             _displayLink = nil;
         }
-        _self_progress = to;
+        _currentPosition = to;
         [self setNeedsDisplay];
     }
     else {
         
         _animationStartTime = CACurrentMediaTime();
-        _fromValue = _self_progress;
+        _fromValue = _currentPosition;
         _toValue = to;
         if (!_displayLink) {
             [self.displayLink removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
@@ -99,11 +99,11 @@
     if (dt >= 1.0) { // where it stops
         [self.displayLink removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
         self.displayLink = nil;
-        _self_progress = _toValue;
+        _currentPosition = _toValue;
         [self setNeedsDisplay];
         return;
     }
-    _self_progress = _fromValue + dt * (_toValue - _fromValue);
+    _currentPosition = _fromValue + dt * (_toValue - _fromValue);
     [self setNeedsDisplay];
 }
 
@@ -137,8 +137,8 @@
 
 - (void)drawProgressIn
 {
-    float startAngle = -M_PI_2 + (2.0 * M_PI * _firstSlider);
-    float endAngle = -M_PI_2 + (2.0 * M_PI * _self_progress);
+    float startAngle = -M_PI_2 + (2.0 * M_PI * _startPosition);
+    float endAngle = -M_PI_2 + (2.0 * M_PI * _currentPosition);
     if (startAngle > endAngle) {
         startAngle = endAngle;
     }
@@ -154,7 +154,7 @@
     //Set the path
     _progressInLayout.path = path.CGPath;
     
-    _label1.text = [NSString stringWithFormat:@"%.2f", _self_progress];
+    _label1.text = [NSString stringWithFormat:@"%.2f", _currentPosition];
     
     
 }

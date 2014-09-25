@@ -10,8 +10,6 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet RingView *ringView;
-@property (weak, nonatomic) IBOutlet UILabel *progressPercentage;
-@property (weak, nonatomic) IBOutlet UILabel *progressTime;
 @property (weak, nonatomic) IBOutlet UILabel *startLabel;
 @property (weak, nonatomic) IBOutlet UILabel *endLabel;
 @property (weak, nonatomic) IBOutlet UISlider *startValue;
@@ -24,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateUI];
-    [self reset:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +30,10 @@
 
 - (IBAction)run:(id)sender {
     [self.ringView runOneFrom:_startValue.value To:_endValue.value animated:YES];
+}
+- (IBAction)nonAnimatedRun:(id)sender {
+    [self.ringView runOneFrom:_startValue.value To:_endValue.value animated:NO];
+
 }
 
 - (IBAction)slide1:(id)sender {
@@ -51,8 +52,9 @@
     self.startLabel.text = [NSString stringWithFormat:@"%.2f", self.startValue.value];
     self.endLabel.text = [NSString stringWithFormat:@"%.2f", self.endValue.value];
 
-    [self.ringView setFirstSlider:_startValue.value];
-    [self.ringView setSelf_progress:_endValue.value];
+    [self.ringView setStartPosition:_startValue.value];
+    [self.ringView setCurrentPosition:_endValue.value];
+    [self reset:nil];
 }
 
 @end

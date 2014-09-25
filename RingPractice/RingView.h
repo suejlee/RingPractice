@@ -16,8 +16,8 @@
 
 @property (nonatomic, assign) CGFloat fromValue;
 @property (nonatomic, assign) CGFloat toValue;
-@property (nonatomic, assign) CGFloat self_progress;
-@property (nonatomic, assign) CGFloat firstSlider;
+@property (nonatomic, assign) CGFloat currentPosition;
+@property (nonatomic, assign) CGFloat startPosition;
 
 - (void)runOneFrom:(CGFloat)from To:(CGFloat)to animated:(BOOL)animated;
 
