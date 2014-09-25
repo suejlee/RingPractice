@@ -59,7 +59,7 @@
     
     WorkoutItem *workoutItem = self.workoutArray[indexPath.row];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %.2f,%.2f,%d", workoutItem.name, workoutItem.start, workoutItem.end, workoutItem.repetition];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, (%.2f,%.2f,%d)", workoutItem.name, workoutItem.start, workoutItem.end, workoutItem.repetition];
     return cell;
 }
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>workoutNameKey</key>
+		<string>Crunch</string>
+		<key>startKey</key>
+		<real>0.2</real>
+		<key>endKey</key>
+		<real>0.8</real>
+		<key>repetitionKey</key>
+		<integer>20</integer>
+	</dict>
+	<dict>
+		<key>workoutNameKey</key>
+		<string>Push up</string>
+		<key>startKey</key>
+		<real>0.1</real>
+		<key>endKey</key>
+		<real>0.3</real>
+		<key>repetitionKey</key>
+		<integer>15</integer>
+	</dict>
+	<dict>
+		<key>workoutNameKey</key>
+		<string>Plank</string>
+		<key>startKey</key>
+		<real>0.7</real>
+		<key>endKey</key>
+		<integer>1</integer>
+		<key>repetitionKey</key>
+		<integer>18</integer>
+	</dict>
+	<dict>
+		<key>workoutNameKey</key>
+		<string>Jumping Jacks</string>
+		<key>startKey</key>
+		<real>0.5</real>
+		<key>endKey</key>
+		<real>0.7</real>
+		<key>repetitionKey</key>
+		<integer>10</integer>
+	</dict>
+</array>
+</plist>
