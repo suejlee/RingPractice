@@ -55,12 +55,13 @@
     _progressInLayout.lineWidth = lineWidth * 2;
     [self.layer addSublayer:_progressInLayout];
     
-    _label1 = [[UILabel alloc] init];
+    _label1 = [[UILabel alloc] initWithFrame:CGRectMake(100, 120, 80, 30)];
     _label1.textAlignment = NSTextAlignmentCenter;
     _label1.contentMode = UIViewContentModeCenter;
     _label1.font = [UIFont systemFontOfSize:(self.bounds.size.width / 10)];
     _label1.textColor = [UIColor redColor];
-    _label1.frame = self.bounds;
+    _label1.backgroundColor = [UIColor grayColor];
+//    _label1.frame = self.bounds;
     [self addSubview:_label1];
 }
 

@@ -6,21 +6,19 @@
 //  Copyright (c) 2014 Catinea. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "RingViewController.h"
 
-@interface ViewController ()
+@interface RingViewController ()
 @property (weak, nonatomic) IBOutlet RingView *ringView;
-@property (weak, nonatomic) IBOutlet UILabel *startLabel;
-@property (weak, nonatomic) IBOutlet UILabel *endLabel;
-@property (weak, nonatomic) IBOutlet UISlider *startValue;
-@property (weak, nonatomic) IBOutlet UISlider *endValue;
 
 @end
 
-@implementation ViewController
+@implementation RingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.startValue.value = self.initStartValue;
+    self.endValue.value = self.initEndValue;
     [self updateUI];
 }
 
