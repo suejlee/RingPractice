@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *endValue;
 @property (nonatomic, assign) float initStartValue;
 @property (nonatomic, assign) float initEndValue;
+@property (nonatomic, strong) NSNumber *repetition;
 @end
 

@@ -7,7 +7,7 @@
 //
 
 #import "ItemListTVC.h"
-#import "RingViewController.h"
+#import "NewRingVC.h"
 
 @interface ItemListTVC ()
 
@@ -34,7 +34,6 @@
     return [self.workoutArray count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ItemCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -43,21 +42,28 @@
     NSString *name = [item objectForKey:@"name"];
     float start = [[item objectForKey:@"start"] floatValue];
     float end = [[item objectForKey:@"end"] floatValue];
-    int repetition = [[item objectForKey:@"repetiiton"] integerValue];
+    int rep1 = [[item objectForKey:@"rep1"] intValue] ;
+    int rep2 = [[item objectForKey:@"rep2"] intValue] ;
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.2f,%.2f,%d)", name, start, end,repetition];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.2f,%.2f)(%d/%d)", name, start, end, rep1, rep2];
     return cell;
 }
 
-- (void)prepareForTheRing:(RingViewController *)vc with:(NSDictionary *)item{
+- (void)prepareForTheRing:(NewRingVC *)vc with:(NSDictionary *)item{
     
     NSString *name = [item objectForKey:@"name"];
     float start = [[item objectForKey:@"start"] floatValue];
     float end = [[item objectForKey:@"end"] floatValue];
+    int rep1 = [[item objectForKey:@"rep1"] intValue] ;
+    int rep2 = [[item objectForKey:@"rep2"] intValue] ;
 
     vc.title = name;
-    vc.initStartValue = start;
-    vc.initEndValue = end;
+    vc.firstDuration = start*3;
+    vc.secondDuration = end*3;
+    vc.firstRepetition =   rep1;
+    vc.secondRepetition =  rep2;
+    
+//    NSLog(@"%@ (%.2f,%.2f)(%d/%d)", name, start, end, rep1, rep2);
 }
 
 #pragma mark - Navigation
@@ -66,13 +72,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     if (indexPath) {
-        if ([segue.identifier isEqualToString:@"RingView"]) {
-            if ([segue.destinationViewController isKindOfClass:[RingViewController class]]) {
+        if ([segue.identifier isEqualToString:@"NewRing"]) {
+            if ([segue.destinationViewController isKindOfClass:[NewRingVC class]]) {
 
                 NSDictionary *item = self.workoutArray[indexPath.row];
                 
                 [self prepareForTheRing:segue.destinationViewController with:item];
-                
             }
         }
     }
