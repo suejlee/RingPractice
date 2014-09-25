@@ -12,10 +12,10 @@
 @property (weak, nonatomic) IBOutlet RingView *ringView;
 @property (weak, nonatomic) IBOutlet UILabel *progressPercentage;
 @property (weak, nonatomic) IBOutlet UILabel *progressTime;
-@property (weak, nonatomic) IBOutlet UILabel *firstSpeedLabel;
-@property (weak, nonatomic) IBOutlet UILabel *secondSpeedLabel;
-@property (weak, nonatomic) IBOutlet UISlider *firstSlider;
-@property (weak, nonatomic) IBOutlet UISlider *secondSlider;
+@property (weak, nonatomic) IBOutlet UILabel *startLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endLabel;
+@property (weak, nonatomic) IBOutlet UISlider *startValue;
+@property (weak, nonatomic) IBOutlet UISlider *endValue;
 
 @end
 
@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateUI];
+    [self reset:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,18 +32,15 @@
 }
 
 - (IBAction)run:(id)sender {
-    [self.ringView runOneFrom:_firstSlider.value To:_secondSlider.value animated:YES];
-
+    [self.ringView runOneFrom:_startValue.value To:_endValue.value animated:YES];
 }
 
-- (IBAction)firstSpeed:(id)sender {
+- (IBAction)slide1:(id)sender {
     [self updateUI];
-//    [self.ringView setFirstStart:self.firstSlider.value];
 }
 
-- (IBAction)secondSpeed:(id)sender {
+- (IBAction)slide2:(id)sender {
     [self updateUI];
-//    [self.ringView setFirstEnd:self.secondSlider.value];
 }
 
 - (IBAction)reset:(id)sender {
@@ -50,11 +48,11 @@
 }
 
 - (void) updateUI {
-    self.firstSpeedLabel.text = [NSString stringWithFormat:@"%.2f", self.firstSlider.value];
-    self.secondSpeedLabel.text = [NSString stringWithFormat:@"%.2f", self.secondSlider.value];
+    self.startLabel.text = [NSString stringWithFormat:@"%.2f", self.startValue.value];
+    self.endLabel.text = [NSString stringWithFormat:@"%.2f", self.endValue.value];
 
-    [self.ringView setFirstSlider:self.firstSlider.value];
-    [self.ringView setSelf_progress:self.secondSlider.value];
+    [self.ringView setFirstSlider:_startValue.value];
+    [self.ringView setSelf_progress:_endValue.value];
 }
 
 @end

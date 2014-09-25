@@ -36,8 +36,6 @@
 
 - (void) setup {
     _self_progress = 0;
-//    _current2 = 0;
-    
     _duration = 1; // 2 sec
     self.backgroundColor = [UIColor yellowColor];
     
@@ -97,19 +95,16 @@
 
 - (void)animateProgress:(CADisplayLink *)displayLink
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CGFloat dt = (displayLink.timestamp - _animationStartTime) / _duration;
-        if (dt >= 1.0) { // where it stops
-            [self.displayLink removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-            self.displayLink = nil;
-            _self_progress = _toValue;
-            [self setNeedsDisplay];
-            return;
-        }
-        _self_progress = _fromValue + dt * (_toValue - _fromValue);
+    CGFloat dt = (displayLink.timestamp - _animationStartTime) / _duration;
+    if (dt >= 1.0) { // where it stops
+        [self.displayLink removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+        self.displayLink = nil;
+        _self_progress = _toValue;
         [self setNeedsDisplay];
-        
-    });
+        return;
+    }
+    _self_progress = _fromValue + dt * (_toValue - _fromValue);
+    [self setNeedsDisplay];
 }
 
 #pragma mark Drawing
@@ -142,14 +137,11 @@
 
 - (void)drawProgressIn
 {
-    float startAngle;
-    if (_firstSlider > 0) {
-        startAngle = -M_PI_2 + (2.0 * M_PI * _firstSlider);
-    } else {
-        startAngle = -M_PI_2;
+    float startAngle = -M_PI_2 + (2.0 * M_PI * _firstSlider);
+    float endAngle = -M_PI_2 + (2.0 * M_PI * _self_progress);
+    if (startAngle > endAngle) {
+        startAngle = endAngle;
     }
-//    float startAngle = - M_PI_2 ;
-    float endAngle = startAngle + (2.0 * M_PI * _self_progress);
     CGPoint center = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.width / 2.0);
     CGFloat radius = (self.bounds.size.width - _backgroundInLayout.lineWidth) / 3.0; // align center of the background
     
