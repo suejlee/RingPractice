@@ -4,55 +4,55 @@
 <array>
 	<dict>
 		<key>body</key>
-		<string>core</string>
+		<string>Core</string>
 		<key>detail</key>
 		<array>
 			<dict>
 				<key>name</key>
 				<string>Crunch</string>
-				<key>start</key>
-				<real>0.2</real>
+				<key>repTime</key>
+				<real>1.5</real>
 				<key>end</key>
-				<real>0.8</real>
-				<key>rep1</key>
+				<real>8</real>
+				<key>numRep</key>
 				<integer>5</integer>
-                <key>rep2</key>
-                <integer>10</integer>
+                <key>numSet</key>
+                <integer>2</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Push up</string>
-				<key>start</key>
-				<real>0.1</real>
+				<key>repTime</key>
+				<real>1</real>
 				<key>end</key>
-				<real>0.3</real>
-                <key>rep1</key>
-                <integer>25</integer>
-                <key>rep2</key>
-                <integer>5</integer>
+				<real>3</real>
+                <key>numRep</key>
+                <integer>15</integer>
+                <key>numSet</key>
+                <integer>2</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Plank</string>
-				<key>start</key>
-				<real>0.7</real>
+				<key>repTime</key>
+				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>rep1</key>
-                <integer>1</integer>
-                <key>rep2</key>
+                <key>numRep</key>
+                <integer>20</integer>
+                <key>numSet</key>
                 <integer>3</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Jumping Jacks</string>
-				<key>start</key>
-				<real>0.5</real>
+				<key>repTime</key>
+				<real>5</real>
 				<key>end</key>
-				<real>0.7</real>
-                <key>rep1</key>
+				<real>7</real>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 		</array>
@@ -65,37 +65,37 @@
 			<dict>
 				<key>name</key>
 				<string>Chest Press</string>
-				<key>start</key>
-				<real>0.2</real>
+				<key>repTime</key>
+				<real>2</real>
 				<key>end</key>
-				<real>0.8</real>
-                <key>rep1</key>
+				<real>8</real>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Dumbbell Flys</string>
-				<key>start</key>
-				<real>0.1</real>
+				<key>repTime</key>
+				<real>1</real>
 				<key>end</key>
-				<real>0.3</real>
-                <key>rep1</key>
+				<real>3</real>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Boxer</string>
-				<key>start</key>
-				<real>0.7</real>
+				<key>repTime</key>
+				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>rep1</key>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 		</array>
@@ -108,61 +108,61 @@
 			<dict>
 				<key>name</key>
 				<string>Bridges</string>
-				<key>start</key>
-				<real>0.2</real>
+				<key>repTime</key>
+				<real>2</real>
 				<key>end</key>
-				<real>0.8</real>
-                <key>rep1</key>
+				<real>8</real>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Squats</string>
-				<key>start</key>
-				<real>0.1</real>
+				<key>repTime</key>
+				<real>1</real>
 				<key>end</key>
-				<real>0.3</real>
-                <key>rep1</key>
+				<real>3</real>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Lunges</string>
-				<key>start</key>
-				<real>0.7</real>
+				<key>repTime</key>
+				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>rep1</key>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Step</string>
-				<key>start</key>
-				<real>0.7</real>
+				<key>repTime</key>
+				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>rep1</key>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Step-Ups</string>
-				<key>start</key>
-				<real>0.7</real>
+				<key>repTime</key>
+				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>rep1</key>
+                <key>numRep</key>
                 <integer>2</integer>
-                <key>rep2</key>
+                <key>numSet</key>
                 <integer>5</integer>
 			</dict>
 		</array>

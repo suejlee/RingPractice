@@ -40,30 +40,30 @@
     
     NSDictionary *item = self.workoutArray[indexPath.row];
     NSString *name = [item objectForKey:@"name"];
-    float start = [[item objectForKey:@"start"] floatValue];
-    float end = [[item objectForKey:@"end"] floatValue];
-    int rep1 = [[item objectForKey:@"rep1"] intValue] ;
-    int rep2 = [[item objectForKey:@"rep2"] intValue] ;
+//    float repTime = [[item objectForKey:@"repTime"] floatValue];
+//    float end = [[item objectForKey:@"end"] floatValue];
+    int numRep = [[item objectForKey:@"numRep"] intValue] ;
+    int numSet = [[item objectForKey:@"numSet"] intValue] ;
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.2f,%.2f)(%d/%d)", name, start, end, rep1, rep2];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (rep:%d,set:%d)", name, numRep, numSet];
     return cell;
 }
 
 - (void)prepareForTheRing:(NewRingVC *)vc with:(NSDictionary *)item{
     
     NSString *name = [item objectForKey:@"name"];
-    float start = [[item objectForKey:@"start"] floatValue];
+    float repTime = [[item objectForKey:@"repTime"] floatValue];
     float end = [[item objectForKey:@"end"] floatValue];
-    int rep1 = [[item objectForKey:@"rep1"] intValue] ;
-    int rep2 = [[item objectForKey:@"rep2"] intValue] ;
+    int numRep = [[item objectForKey:@"numRep"] intValue] ;
+    int numSet = [[item objectForKey:@"numSet"] intValue] ;
 
     vc.title = name;
-    vc.firstDuration = start*3;
-    vc.secondDuration = end*3;
-    vc.firstRepetition =   rep1;
-    vc.secondRepetition =  rep2;
+    vc.repTime = repTime;
+    vc.restTime = end*3;
+    vc.numRep =   numRep;
+    vc.numSet =  numSet;
     
-//    NSLog(@"%@ (%.2f,%.2f)(%d/%d)", name, start, end, rep1, rep2);
+//    NSLog(@"%@ (%.2f,%.2f)(%d/%d)", name, repTime, end, numRep, numSet);
 }
 
 #pragma mark - Navigation

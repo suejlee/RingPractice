@@ -11,10 +11,10 @@
 @interface NewRingVC : UIViewController
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) float firstDuration;
-@property (nonatomic, assign) float secondDuration;
-@property (nonatomic, assign) int firstRepetition;
-@property (nonatomic, assign) int secondRepetition;
+@property (nonatomic, assign) float repTime;
+@property (nonatomic, assign) float restTime;
+@property (nonatomic, assign) int numRep;
+@property (nonatomic, assign) int numSet;
 
 
 @end
