@@ -10,12 +10,10 @@
 		BDA5904119D4A54B00B5EF8B /* NewRingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA5904019D4A54B00B5EF8B /* NewRingVC.m */; };
 		BDB63D9A19D28BFB003027D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63D9919D28BFB003027D8 /* main.m */; };
 		BDB63D9D19D28BFB003027D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63D9C19D28BFB003027D8 /* AppDelegate.m */; };
-		BDB63DA019D28BFB003027D8 /* RingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63D9F19D28BFB003027D8 /* RingViewController.m */; };
 		BDB63DA319D28BFB003027D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB63DA119D28BFB003027D8 /* Main.storyboard */; };
 		BDB63DA519D28BFB003027D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDB63DA419D28BFB003027D8 /* Images.xcassets */; };
 		BDB63DA819D28BFB003027D8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDB63DA619D28BFB003027D8 /* LaunchScreen.xib */; };
 		BDB63DB419D28BFB003027D8 /* RingPracticeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63DB319D28BFB003027D8 /* RingPracticeTests.m */; };
-		BDB63DBF19D28D01003027D8 /* RingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB63DBE19D28D01003027D8 /* RingView.m */; };
 		BDD1DD9C19D3D0B600BEF7A6 /* ItemListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD1DD9B19D3D0B600BEF7A6 /* ItemListTVC.m */; };
 		BDD1DD9E19D3D10C00BEF7A6 /* itemList.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDD1DD9D19D3D10C00BEF7A6 /* itemList.plist */; };
 		BDE101FE19D3EF5800F77332 /* MainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE101FD19D3EF5800F77332 /* MainTVC.m */; };
@@ -39,16 +37,12 @@
 		BDB63D9919D28BFB003027D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BDB63D9B19D28BFB003027D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BDB63D9C19D28BFB003027D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BDB63D9E19D28BFB003027D8 /* RingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingViewController.h; sourceTree = "<group>"; };
-		BDB63D9F19D28BFB003027D8 /* RingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingViewController.m; sourceTree = "<group>"; };
 		BDB63DA219D28BFB003027D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BDB63DA419D28BFB003027D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BDB63DA719D28BFB003027D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BDB63DAD19D28BFB003027D8 /* RingPracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingPracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB63DB219D28BFB003027D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDB63DB319D28BFB003027D8 /* RingPracticeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingPracticeTests.m; sourceTree = "<group>"; };
-		BDB63DBD19D28D01003027D8 /* RingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingView.h; sourceTree = "<group>"; };
-		BDB63DBE19D28D01003027D8 /* RingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingView.m; sourceTree = "<group>"; };
 		BDD1DD9A19D3D0B600BEF7A6 /* ItemListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemListTVC.h; sourceTree = "<group>"; };
 		BDD1DD9B19D3D0B600BEF7A6 /* ItemListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemListTVC.m; sourceTree = "<group>"; };
 		BDD1DD9D19D3D10C00BEF7A6 /* itemList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = itemList.plist; sourceTree = "<group>"; };
@@ -98,10 +92,6 @@
 			children = (
 				BDB63D9B19D28BFB003027D8 /* AppDelegate.h */,
 				BDB63D9C19D28BFB003027D8 /* AppDelegate.m */,
-				BDB63D9E19D28BFB003027D8 /* RingViewController.h */,
-				BDB63D9F19D28BFB003027D8 /* RingViewController.m */,
-				BDB63DBD19D28D01003027D8 /* RingView.h */,
-				BDB63DBE19D28D01003027D8 /* RingView.m */,
 				BDE101FC19D3EF5800F77332 /* MainTVC.h */,
 				BDE101FD19D3EF5800F77332 /* MainTVC.m */,
 				BDD1DD9A19D3D0B600BEF7A6 /* ItemListTVC.h */,
@@ -244,8 +234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDA5904119D4A54B00B5EF8B /* NewRingVC.m in Sources */,
-				BDB63DBF19D28D01003027D8 /* RingView.m in Sources */,
-				BDB63DA019D28BFB003027D8 /* RingViewController.m in Sources */,
 				BDD1DD9C19D3D0B600BEF7A6 /* ItemListTVC.m in Sources */,
 				BDB63D9D19D28BFB003027D8 /* AppDelegate.m in Sources */,
 				BDB63D9A19D28BFB003027D8 /* main.m in Sources */,

@@ -16,8 +16,8 @@
 				<real>8</real>
 				<key>numRep</key>
 				<integer>5</integer>
-                <key>numSet</key>
-                <integer>2</integer>
+				<key>numSet</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -26,10 +26,10 @@
 				<real>1</real>
 				<key>end</key>
 				<real>3</real>
-                <key>numRep</key>
-                <integer>15</integer>
-                <key>numSet</key>
-                <integer>2</integer>
+				<key>numRep</key>
+				<integer>15</integer>
+				<key>numSet</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -38,22 +38,22 @@
 				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>numRep</key>
-                <integer>20</integer>
-                <key>numSet</key>
-                <integer>3</integer>
+				<key>numRep</key>
+				<integer>20</integer>
+				<key>numSet</key>
+				<integer>3</integer>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Jumping Jacks</string>
 				<key>repTime</key>
-				<real>5</real>
+				<integer>1</integer>
 				<key>end</key>
 				<real>7</real>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>3</integer>
+				<key>numSet</key>
+				<integer>2</integer>
 			</dict>
 		</array>
 	</dict>
@@ -69,10 +69,10 @@
 				<real>2</real>
 				<key>end</key>
 				<real>8</real>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -81,10 +81,10 @@
 				<real>1</real>
 				<key>end</key>
 				<real>3</real>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -93,10 +93,10 @@
 				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 		</array>
 	</dict>
@@ -112,10 +112,10 @@
 				<real>2</real>
 				<key>end</key>
 				<real>8</real>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -124,10 +124,10 @@
 				<real>1</real>
 				<key>end</key>
 				<real>3</real>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -136,10 +136,10 @@
 				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -148,10 +148,10 @@
 				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -160,10 +160,10 @@
 				<real>7</real>
 				<key>end</key>
 				<integer>1</integer>
-                <key>numRep</key>
-                <integer>2</integer>
-                <key>numSet</key>
-                <integer>5</integer>
+				<key>numRep</key>
+				<integer>2</integer>
+				<key>numSet</key>
+				<integer>5</integer>
 			</dict>
 		</array>
 	</dict>

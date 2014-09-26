@@ -13,12 +13,14 @@
 @property (nonatomic, retain) CAShapeLayer *firstRing;
 @property (nonatomic, retain) CAShapeLayer *secondRing;
 @property (nonatomic, retain) CAShapeLayer *thirdRing;
-
-@property (weak, nonatomic) IBOutlet UILabel *label1;
-@property (weak, nonatomic) IBOutlet UILabel *label2;
-@property (weak, nonatomic) IBOutlet UILabel *rep1;
-@property (weak, nonatomic) IBOutlet UILabel *rep2;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numRepLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numSetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *repSpeedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *runTimeLabel;
+@property (nonatomic, assign) float timerValue;
+@property (nonatomic, assign) float totalDuaration;
+@property (nonatomic, strong) NSTimer *autoTimer;
 
 
 @end
@@ -27,23 +29,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
     
+    self.view.backgroundColor=[UIColor whiteColor];
+    self.timerValue = 0;
+//    [self setupRings];
+    
+    self.repSpeedLabel.text = [NSString stringWithFormat:@"Rep Speed %.2f(s)", self.repTime];
+    //    self.restTimeLabel.text = [NSString stringWithFormat:@"Rest Time %.2f", self.restTime];
+    self.totalDuaration = self.repTime * self.numRep * self.numSet;
+    self.restTimeLabel.text = [NSString stringWithFormat:@"Total time:%.1f(s)", self.totalDuaration];
+    self.numRepLabel.text = [NSString stringWithFormat:@" Rep:%d, Set:%d", self.numRep, self.numSet];
+    //    self.numSetLabel.text = [NSString stringWithFormat:@"Number of Sets:%d", self.numSet];
+    self.runTimeLabel.text = [NSString stringWithFormat:@"%.f", 0.0];
+
+
+}
+- (IBAction)runButtonPressed:(id)sender {
+    
+    [self setupRings];
+    [self runRings];
+    
+    self.autoTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+}
+
+-(void) setupRings {
     [self initFirstRing];
     [self initSecondRing];
     [self initThirdRing];
-    
-    self.label1.text = [NSString stringWithFormat:@"%.2f", self.repTime];
-    self.label2.text = [NSString stringWithFormat:@"%.2f", self.restTime];
-    self.rep1.text = [NSString stringWithFormat:@"%d", self.numRep];
-    self.rep2.text = [NSString stringWithFormat:@"%d", self.numSet];
-    self.timeLabel.text = [NSString stringWithFormat:@"%f", 0.0];
-    
-//    [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 }
 
+-(void) runRings {
+    
+    [self drawRingAnimation:self.firstRing withDuration:self.totalDuaration repetition:1];
+    [self drawRingAnimation:self.secondRing withDuration:self.repTime  * self.numRep repetition:self.numSet];
+    [self drawRingAnimation:self.thirdRing withDuration:self.repTime repetition:self.numRep * self.numSet];
+
+}
+
+
 - (void) handleTimer:(NSTimer *)timer {
-    self.timeLabel.text = timer.description;
+    if (self.totalDuaration - self.timerValue < 0 ) { //total duation
+        [self.autoTimer invalidate];
+        self.autoTimer = nil;
+    }
+    self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.timerValue ];
+    self.timerValue += 0.1;
 }
 
 
@@ -51,7 +81,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)initFirstRing { //out
     UIBezierPath *path=[UIBezierPath bezierPath];
@@ -65,7 +94,6 @@
     self.firstRing.lineWidth=15;
     self.firstRing.frame=self.view.frame;
     [self.view.layer addSublayer:self.firstRing];
-    [self drawFirstRingAnimation:self.firstRing];
 }
 
 - (void)initSecondRing { //middle
@@ -80,7 +108,6 @@
     self.secondRing.lineWidth=15;
     self.secondRing.frame=self.view.frame;
     [self.view.layer addSublayer:self.secondRing];
-    [self drawSecondRingAnimation:self.secondRing];
 }
 
 - (void)initThirdRing { //in
@@ -95,40 +122,19 @@
     self.thirdRing.lineWidth=5;
     self.thirdRing.frame=self.view.frame;
     [self.view.layer addSublayer:self.thirdRing];
-    [self drawThirdRingAnimation:self.thirdRing];
 }
 
-
--(void)drawFirstRingAnimation:(CALayer*)layer
+-(void)drawRingAnimation:(CALayer*)layer withDuration:(float)duration repetition:(float)repetition
 {
     CABasicAnimation *bas=[CABasicAnimation animationWithKeyPath:@"strokeEnd"]; //out
-    bas.duration=self.repTime * self.numRep * self.numSet;//self.repTime;
-    bas.repeatCount=1;
+    bas.duration=duration;
+    bas.repeatCount=repetition;
     bas.delegate=self;
     bas.fromValue=[NSNumber numberWithInteger:0];
     bas.toValue=[NSNumber numberWithInteger:1];
     [layer addAnimation:bas forKey:@"key"];
 }
 
-- (void)drawSecondRingAnimation:(CALayer *)layer { // middle
-    CABasicAnimation *bas=[CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    bas.duration=self.repTime * self.numRep;
-    bas.repeatCount=self.numSet;
-    bas.delegate=self;
-    bas.fromValue=[NSNumber numberWithInteger:0];
-    bas.toValue=[NSNumber numberWithInteger:1];
-    [layer addAnimation:bas forKey:@"key"];
-}
-
-- (void)drawThirdRingAnimation:(CALayer *)layer { // in
-    CABasicAnimation *bas=[CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    bas.duration=self.repTime;
-    bas.repeatCount=self.numRep * self.numSet;
-    bas.delegate=self;
-    bas.fromValue=[NSNumber numberWithInteger:0];
-    bas.toValue=[NSNumber numberWithInteger:1];
-    [layer addAnimation:bas forKey:@"key"];
-}
 
 /*
 #pragma mark - Navigation
