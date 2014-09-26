@@ -59,7 +59,7 @@
 
     vc.title = name;
     vc.repTime = repTime;
-    vc.restTime = end*3;
+    vc.restTime = end;
     vc.numRep =   numRep;
     vc.numSet =  numSet;
     
