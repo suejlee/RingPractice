@@ -41,7 +41,7 @@
     NSDictionary *item = self.workoutArray[indexPath.row];
     NSString *name = [item objectForKey:@"name"];
 //    float repTime = [[item objectForKey:@"repTime"] floatValue];
-//    float end = [[item objectForKey:@"end"] floatValue];
+//    float restTime= [[item objectForKey:@"restTime"] floatValue];
     int numRep = [[item objectForKey:@"numRep"] intValue] ;
     int numSet = [[item objectForKey:@"numSet"] intValue] ;
 
@@ -53,13 +53,13 @@
     
     NSString *name = [item objectForKey:@"name"];
     float repTime = [[item objectForKey:@"repTime"] floatValue];
-    float end = [[item objectForKey:@"end"] floatValue];
+    float restTime= [[item objectForKey:@"restTime"] floatValue];
     int numRep = [[item objectForKey:@"numRep"] intValue] ;
     int numSet = [[item objectForKey:@"numSet"] intValue] ;
 
     vc.title = name;
     vc.repTime = repTime;
-    vc.restTime = end;
+    vc.restTime = restTime ;
     vc.numRep =   numRep;
     vc.numSet =  numSet;
     

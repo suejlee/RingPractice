@@ -35,9 +35,10 @@
     
     self.view.backgroundColor=[UIColor whiteColor];
     self.timerValue = 0;
-//    [self setupRings];
-//    [self initFirstRing];
+    //    [self setupRings];
+    //    [self initFirstRing];
     [self initSecondRing];
+    [self drawSecondBackgroundRing];
     
     self.repSpeedLabel.text = [NSString stringWithFormat:@"Rep(%.2f(s))/Rest(%.2f(s))", self.repTime, self.restTime];
     //    self.restTimeLabel.text = [NSString stringWithFormat:@"Rest Time %.2f", self.restTime];
@@ -46,8 +47,8 @@
     self.numRepLabel.text = [NSString stringWithFormat:@" Rep:%d, Set:%d", self.numRep, self.numSet];
     //    self.numSetLabel.text = [NSString stringWithFormat:@"Number of Sets:%d", self.numSet];
     self.runTimeLabel.text = [NSString stringWithFormat:@"%.f", 0.0];
-
-
+    
+    
 }
 - (IBAction)runButtonPressed:(id)sender {
     
@@ -57,10 +58,10 @@
     self.autoTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 }
 - (IBAction)stopButtonPressed:(id)sender {
-//    if (self.autoTimer != nil) {
-//        [self.autoTimer invalidate];
-//        self.autoTimer = nil;
-//    }
+    [self.firstRing removeAllAnimations];
+    [self.secondRing removeAllAnimations];
+    [self.thirdRing removeAllAnimations];
+
 }
 
 -(void) setupRings {
@@ -102,110 +103,51 @@
     UIBezierPath *path=[UIBezierPath bezierPath];
     CGRect rect=[UIScreen mainScreen].applicationFrame;
     CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
-    [path addArcWithCenter:center radius:120 startAngle:-M_PI_2 endAngle:3*M_PI_2 clockwise:YES];
-
+    
+    [path addArcWithCenter:center
+                    radius:120
+                startAngle:-M_PI_2
+                  endAngle:3*M_PI_2
+                 clockwise:YES];
+    
     self.firstRing=[CAShapeLayer layer];
     self.firstRing.path=path.CGPath;//46,169,230
     self.firstRing.fillColor= [UIColor clearColor].CGColor;
-    self.firstRing.strokeColor=[UIColor blackColor].CGColor;
-    self.firstRing.lineWidth=15;
+    self.firstRing.strokeColor=[UIColor colorWithRed:.2 green:.2 blue:.3 alpha:.5].CGColor;
+    
+    self.firstRing.lineWidth=20;
     self.firstRing.frame=self.view.frame;
     [self.view.layer addSublayer:self.firstRing];
-
-//    CGMutablePathRef pathRef = CGPathCreateMutable();
-    
-//    float segmentSeparationAngle = M_PI / (2 * (2*self.numSet-1));
-//    CGFloat outerStartAngle = - M_PI_2;
-//    outerStartAngle += (segmentSeparationAngle / 2.0);
-//    CGFloat outerRingAngle = (2.0 * M_PI) / (2*self.numSet-1) - segmentSeparationAngle;
-//    
-//    for (int i = 0; i < self.numSet-1; i++) {
-//        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:120 startAngle:outerStartAngle endAngle:(outerStartAngle + outerRingAngle) clockwise:YES];
-//        
-//        [path addArcWithCenter:center radius:105 startAngle:(outerStartAngle + outerRingAngle) endAngle:outerStartAngle clockwise:NO];
-//        
-//        [path closePath];
-//        CGPathAddPath(pathRef, NULL, path.CGPath);
-//        outerStartAngle += (outerRingAngle + segmentSeparationAngle);
-//    }
-//    
-//    self.firstPlusRing=[CAShapeLayer layer];
-//    self.firstPlusRing.fillColor=[UIColor clearColor].CGColor;
-//    self.firstPlusRing.strokeColor=[UIColor colorWithRed:1 green:0 blue:0 alpha:.5].CGColor;
-//    self.firstPlusRing.lineWidth=15;
-//    self.firstPlusRing.frame=self.view.frame;
-//    self.firstPlusRing.path=pathRef;
-//    
-//    CGPathRelease(pathRef);
-//    [self.view.layer addSublayer:self.firstPlusRing];
-//    
-    
     
 }
 
-- (void)createSecondRingBackground {
-    CGRect rect = [UIScreen mainScreen].applicationFrame;
-    float _segmentSeparationAngle = M_PI / (2 * self.numRep);
-    float outerRingAngle = ((2.0 * M_PI) / self.numRep) - _segmentSeparationAngle;
-    float _segmentSeparationInnerAngle = 2.0 * asinf(((rect.size.width / 2.0) * sinf(_segmentSeparationAngle / 2.0)) / ((rect.size.width / 2.0) - 15));
-    float innerRingAngle = ((2.0 * M_PI) / self.numRep) - _segmentSeparationInnerAngle;
-    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
-    //Calculate the angle gap for the inner ring
-
-    CGFloat outerStartAngle = - M_PI_2;
-    outerStartAngle -= (_segmentSeparationAngle / 2.0);
-    //Calculate the inner start angle position
-    CGFloat innerStartAngle = - M_PI_2;
-    innerStartAngle -= (_segmentSeparationInnerAngle / 2.0) + innerRingAngle;
-    //Create the path ref that all the paths will be appended
-    CGMutablePathRef pathRef = CGPathCreateMutable();
+- (void)drawSecondBackgroundRing {
     
-
-    for (int i = 0; i < self.numRep-1; i++) {
-        //Create the outer ring segment
-        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:100 startAngle:outerStartAngle endAngle:(outerStartAngle - outerRingAngle) clockwise:NO];
-        //Create the inner ring segment
-        [path addArcWithCenter:center radius: 85 startAngle:(outerStartAngle - outerRingAngle) endAngle:outerStartAngle clockwise:YES];
-        [path closePath];
-        CGPathAddPath(pathRef, NULL, path.CGPath);
-        outerStartAngle -= (outerRingAngle + _segmentSeparationAngle);
-        innerStartAngle -= (innerRingAngle + _segmentSeparationInnerAngle);
-    }
     
-    self.secondPlusRing.path = pathRef;
-    
-    CGPathRelease(pathRef);
-
-}
-
-
-- (void)initSecondRing { //middle
-    UIBezierPath *path1=[UIBezierPath bezierPath];
     CGRect rect=[UIScreen mainScreen].applicationFrame;
-    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;// CGPointMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.width / 2.0);
-    
-    [path1 addArcWithCenter:center radius:100 startAngle:-M_PI_2 endAngle:3*M_PI_2 clockwise:YES];
-
-    self.secondRing=[CAShapeLayer layer];
-    self.secondRing.fillColor=[UIColor clearColor].CGColor;
-    self.secondRing.strokeColor=[UIColor blackColor].CGColor;
-    self.secondRing.lineWidth=15;
-    self.secondRing.frame=self.view.frame;
-    self.secondRing.path=path1.CGPath;
-    [self.view.layer addSublayer:self.secondRing];
+    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
     
     CGMutablePathRef pathRef = CGPathCreateMutable();
-
+    
     float segmentSeparationAngle = M_PI / (2 * self.numRep);
     CGFloat outerStartAngle = - M_PI_2;
     outerStartAngle += (segmentSeparationAngle / 2.0);
     
     CGFloat outerRingAngle = (2.0 * M_PI) / (self.numRep) - segmentSeparationAngle;
-
+    
     for (int i = 0; i < self.numRep; i++) {
-        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:102 startAngle:outerStartAngle endAngle:(outerStartAngle + outerRingAngle) clockwise:YES];
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path addArcWithCenter:center
+                        radius:105
+                    startAngle:outerStartAngle
+                      endAngle:(outerStartAngle + outerRingAngle)
+                     clockwise:YES];
         
-        [path addArcWithCenter:center radius:85 startAngle:(outerStartAngle + outerRingAngle) endAngle:outerStartAngle clockwise:NO];
+        [path addArcWithCenter:center
+                        radius:95
+                    startAngle:(outerStartAngle + outerRingAngle)
+                      endAngle:outerStartAngle
+                     clockwise:NO];
         
         [path closePath];
         CGPathAddPath(pathRef, NULL, path.CGPath);
@@ -214,8 +156,8 @@
     
     self.secondPlusRing=[CAShapeLayer layer];
     self.secondPlusRing.fillColor=[UIColor whiteColor].CGColor;
-    self.secondPlusRing.strokeColor=[UIColor colorWithRed:1 green:1 blue:1 alpha:.6].CGColor;
-    self.secondPlusRing.lineWidth=10;
+    self.secondPlusRing.strokeColor=[UIColor colorWithRed:1 green:1 blue:1 alpha:.5].CGColor;
+    self.secondPlusRing.lineWidth=20;
     self.secondPlusRing.frame=self.view.frame;
     self.secondPlusRing.path=pathRef;
     
@@ -223,15 +165,45 @@
     [self.view.layer addSublayer:self.secondPlusRing];
 }
 
+
+- (void)initSecondRing { //middle
+    
+//    [self drawSecondBackgroundRing];
+    UIBezierPath *path=[UIBezierPath bezierPath];
+    CGRect rect=[UIScreen mainScreen].applicationFrame;
+    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20);
+    
+    [path addArcWithCenter:center
+                    radius:100
+                startAngle:-M_PI_2
+                  endAngle:3*M_PI_2
+                 clockwise:YES];
+    
+    self.secondRing=[CAShapeLayer layer];
+    self.secondRing.fillColor=[UIColor clearColor].CGColor;
+    self.secondRing.strokeColor=[UIColor colorWithRed:.2 green:.2 blue:.2 alpha:5].CGColor;
+    self.secondRing.lineWidth=20;
+    self.secondRing.frame=self.view.frame;
+    self.secondRing.path=path.CGPath;
+    [self.view.layer addSublayer:self.secondRing];
+    
+}
+
 - (void)initThirdRing { //in
     UIBezierPath *path=[UIBezierPath bezierPath];
     CGRect rect=[UIScreen mainScreen].applicationFrame;
-    [path addArcWithCenter:CGPointMake(rect.size.width/2,rect.size.height/2-20) radius:85 startAngle:-M_PI_2 endAngle:3*M_PI_2 clockwise:YES];
+    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
+    
+    [path addArcWithCenter:center
+                    radius:70
+                startAngle:-M_PI_2
+                  endAngle:3*M_PI_2
+                 clockwise:YES];
     
     self.thirdRing=[CAShapeLayer layer];
     self.thirdRing.path=path.CGPath;//46,169,230
     self.thirdRing.fillColor=[UIColor clearColor].CGColor;
-    self.thirdRing.strokeColor=[UIColor colorWithRed:.3 green:.3 blue:.3 alpha:1].CGColor;
+    self.thirdRing.strokeColor=[UIColor colorWithRed:.7 green:.7 blue:.7 alpha:1].CGColor;
     self.thirdRing.lineWidth=3;
     self.thirdRing.frame=self.view.frame;
     [self.view.layer addSublayer:self.thirdRing];
@@ -250,13 +222,13 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
