@@ -40,12 +40,13 @@
     
     NSDictionary *item = self.workoutArray[indexPath.row];
     NSString *name = [item objectForKey:@"name"];
-//    float repTime = [[item objectForKey:@"repTime"] floatValue];
-//    float restTime= [[item objectForKey:@"restTime"] floatValue];
+    float repTime = [[item objectForKey:@"repTime"] floatValue];
+    float restTime= [[item objectForKey:@"restTime"] floatValue];
     int numRep = [[item objectForKey:@"numRep"] intValue] ;
     int numSet = [[item objectForKey:@"numSet"] intValue] ;
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (rep:%d,set:%d)", name, numRep, numSet];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (rep%.f/rest%.f r/s(%d/%d)",
+                           name, repTime, restTime, numRep, numSet];
     return cell;
 }
 
