@@ -17,7 +17,6 @@
 @property (nonatomic, retain) CAShapeLayer *thirdRing;
 @property (weak, nonatomic) IBOutlet UILabel *restTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numRepLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numSetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *repSpeedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *runTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -37,8 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateLabels];
-    
-    self.timerValue = 0;
     [self drawSecondRing];
     [self drawSecondBackgroundRing];
     [self drawFirstRing];
@@ -51,19 +48,18 @@
 }
 
 - (void)updateLabels {
-    self.repSpeedLabel.text = [NSString stringWithFormat:@"Rep(%.1f(s))/Rest(%.1f(s))", self.repTime, self.restTime];
-    //    self.restTimeLabel.text = [NSString stringWithFormat:@"Rest Time %.2f", self.restTime];
+    self.timerValue = 0;
     self.totalDuaration = self.repTime * self.numRep * self.numSet + self.restTime * (self.numSet-1);
+    self.repSpeedLabel.text = [NSString stringWithFormat:@"%.1f(s)/Rep, %.1f(s)/Rest)", self.repTime, self.restTime];
     self.restTimeLabel.text = [NSString stringWithFormat:@"Total time:%.1f(s)", self.totalDuaration];
     self.numRepLabel.text = [NSString stringWithFormat:@"(Rep:%d/Set:%d)", self.numRep, self.numSet];
-    //    self.numSetLabel.text = [NSString stringWithFormat:@"Number of Sets:%d", self.numSet];
     self.runTimeLabel.text = [NSString stringWithFormat:@"%.f", 0.0];
     self.statusLabel.text = [NSString stringWithFormat:@"Rep (%d),Set(%d)", 1, 1];
 
 }
 
 - (IBAction)runButtonPressed:(id)sender {
-    [self reset];
+//    [self reset];
     [self setupRings];
     [self drawRingAnimation:self.firstRing withDuration:self.totalDuaration repetition:1];
     [self secondRingTimer:nil];
@@ -91,7 +87,6 @@
                                                           selector:@selector(setStatusLabeLForRep:)
                                                           userInfo:nil
                                                            repeats:YES];
-
 }
 
 - (void) setStatusLabeLForRep:(NSTimer *)timer {
@@ -104,8 +99,10 @@
 - (void) setStatusLabelTimer {
     self.statusLabel.text = @"Rest!";
     self.currentRep = 1;
-    [self.repTimer invalidate];
-    self.repTimer = nil;
+    if(self.repTimer!= nil) { // I need to reset, so that it'll start from the beginning of the second set
+        [self.repTimer invalidate];
+        self.repTimer = nil;
+    }
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
@@ -132,6 +129,11 @@
         [self.secondRingTimer invalidate];
         self.secondRingTimer = nil;
     }
+    
+//    for (CAShapeLayer *layer in self.view.layer.sublayers) {
+//        [layer removeFromSuperlayer];
+//    }
+//    [self setupRings];
 }
 
 -(void) setupRings {
