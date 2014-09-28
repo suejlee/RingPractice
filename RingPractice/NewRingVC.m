@@ -25,6 +25,7 @@
 @property (nonatomic, assign) float totalDuaration;
 @property (nonatomic, strong) NSTimer *autoTimer;
 @property (nonatomic, strong) NSTimer *secondRingTimer;
+@property (nonatomic, assign) int currentSet;
 
 
 @end
@@ -35,7 +36,6 @@
     [super viewDidLoad];
     [self updateLabels];
     
-//    self.view.backgroundColor=[UIColor whiteColor];
     self.timerValue = 0;
     [self drawSecondRing];
     [self drawSecondBackgroundRing];
@@ -81,8 +81,12 @@
     if (self.timerValue >= self.totalDuaration ) { //total duation
         [self.secondRingTimer invalidate];
         self.secondRingTimer = nil;
+        [self.autoTimer invalidate];
+        self.autoTimer = nil;
+        self.timerValue = self.totalDuaration;
     }
-
+    self.currentSet++;
+    self.statusLabel.text = [NSString stringWithFormat:@"Set(%d)", self.currentSet];
     [self drawRingAnimation:self.secondRing withDuration:self.repTime  * self.numRep repetition:1];
     [self drawRingAnimation:self.thirdRing withDuration:self.repTime repetition:self.numRep];
 
@@ -111,9 +115,10 @@
 }
 
 -(void) setupRings {
-    [self drawFirstRing];
-    [self drawSecondRing];
     [self drawThirdRing];
+    [self drawSecondRing];
+    [self drawFirstRing];
+
 }
 
 
@@ -125,16 +130,18 @@
         [self.secondRingTimer invalidate];
         self.secondRingTimer = nil;
 
+        self.statusLabel.text = @"Done! Good job!";
+
     }
 
     self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.timerValue ];
 
-    int currentRep = (int)fmod(self.timerValue/self.repTime, self.numRep)+1;
-    int currentSet = (int)(self.timerValue/(self.repTime * self.numRep))+1;
-    if (currentSet == self.numSet+1 && currentRep == 1)
-        self.statusLabel.text = @"Done! Good job!";
-    else
-        self.statusLabel.text = [NSString stringWithFormat:@"Rep(%d)/Set(%d)", currentRep, currentSet];
+//    int currentRep = (int)fmod((self.timerValue- self.restTime * (self.currentSet-1) /self.repTime), self.numRep)+1;
+//    int currentSet = (int)(self.timerValue/(self.repTime * self.numRep))+1;
+//    if (currentSet == self.numSet+1 && currentRep == 1)
+//        self.statusLabel.text = @"Done! Good job!";
+//    else
+//        self.statusLabel.text = [NSString stringWithFormat:@"Rep(%d)/Set(%d)", currentRep, currentSet];
 
     self.timerValue += 0.1;
     
@@ -176,6 +183,7 @@
     
     float runTimePerSet = self.repTime * self.numRep;
     CGMutablePathRef pathRef = CGPathCreateMutable();
+    
     
     CGFloat runAngle = 2.0 * M_PI * (runTimePerSet/totalTime);
     CGFloat restAngle = 2.0 * M_PI * (self.restTime/totalTime);
@@ -222,6 +230,7 @@
     CGMutablePathRef pathRef = CGPathCreateMutable();
     
     float segmentSeparationAngle = 2 * M_PI * .1 / self.numRep ;
+//    float segmentSeparationAngle = M_PI / (2 * self.numRep);
     CGFloat outerStartAngle = - M_PI_2;// + segmentSeparationAngle;
     outerStartAngle += (segmentSeparationAngle / 2.0);
     
@@ -271,7 +280,7 @@
     
     self.secondRing=[CAShapeLayer layer];
     self.secondRing.fillColor=[UIColor clearColor].CGColor;
-    self.secondRing.strokeColor=[UIColor colorWithRed:.3 green:.2 blue:.2 alpha:4].CGColor;
+    self.secondRing.strokeColor=[UIColor colorWithRed:.3 green:.2 blue:.2 alpha:.4].CGColor;
     self.secondRing.lineWidth=20;
     self.secondRing.frame=self.view.frame;
     self.secondRing.path=path.CGPath;
