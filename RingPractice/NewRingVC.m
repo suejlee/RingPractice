@@ -25,6 +25,8 @@
 @property (nonatomic, assign) float totalDuaration;
 @property (nonatomic, strong) NSTimer *autoTimer;
 @property (nonatomic, strong) NSTimer *secondRingTimer;
+@property (nonatomic, strong) NSTimer *repTimer;
+@property (nonatomic, assign) int currentRep;
 @property (nonatomic, assign) int currentSet;
 
 
@@ -56,11 +58,12 @@
     self.numRepLabel.text = [NSString stringWithFormat:@"(Rep:%d/Set:%d)", self.numRep, self.numSet];
     //    self.numSetLabel.text = [NSString stringWithFormat:@"Number of Sets:%d", self.numSet];
     self.runTimeLabel.text = [NSString stringWithFormat:@"%.f", 0.0];
+    self.statusLabel.text = [NSString stringWithFormat:@"Rep (%d),Set(%d)", 1, 1];
+
 }
 
 - (IBAction)runButtonPressed:(id)sender {
     [self reset];
-    
     [self setupRings];
     [self drawRingAnimation:self.firstRing withDuration:self.totalDuaration repetition:1];
     [self secondRingTimer:nil];
@@ -74,22 +77,35 @@
                                                           selector:@selector(secondRingTimer:)
                                                           userInfo:nil
                                                            repeats:YES];
-        
 }
 
 - (void) secondRingTimer:(NSTimer *)timer {
-    if (self.timerValue >= self.totalDuaration ) { //total duation
-        [self.secondRingTimer invalidate];
-        self.secondRingTimer = nil;
-        [self.autoTimer invalidate];
-        self.autoTimer = nil;
-        self.timerValue = self.totalDuaration;
-    }
     self.currentSet++;
-    self.statusLabel.text = [NSString stringWithFormat:@"Set(%d)", self.currentSet];
+    self.currentRep = 1;
+    self.statusLabel.text = [NSString stringWithFormat:@"Rep (%d),Set(%d)", self.currentRep, self.currentSet];
     [self drawRingAnimation:self.secondRing withDuration:self.repTime  * self.numRep repetition:1];
     [self drawRingAnimation:self.thirdRing withDuration:self.repTime repetition:self.numRep];
+    [self performSelector:@selector(setStatusLabelTimer) withObject:nil afterDelay:self.repTime * self.numRep];
+    self.repTimer = [NSTimer scheduledTimerWithTimeInterval:self.repTime
+                                                            target:self
+                                                          selector:@selector(setStatusLabeLForRep:)
+                                                          userInfo:nil
+                                                           repeats:YES];
 
+}
+
+- (void) setStatusLabeLForRep:(NSTimer *)timer {
+    self.currentRep ++;
+    self.statusLabel.text = [NSString stringWithFormat:@"Rep (%d),Set(%d)", self.currentRep, self.currentSet];
+    if (self.currentRep == self.numRep)
+        self.currentRep = 0;
+}
+
+- (void) setStatusLabelTimer {
+    self.statusLabel.text = @"Rest!";
+    self.currentRep = 1;
+    [self.repTimer invalidate];
+    self.repTimer = nil;
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
@@ -104,11 +120,15 @@
     [self.secondPlusRing removeAllAnimations];
     [self.view.layer removeAllAnimations];
     
-    if (self.autoTimer) {
+    if(self.autoTimer != nil) {
         [self.autoTimer invalidate];
         self.autoTimer = nil;
     }
-    if (self.secondRingTimer) {
+    if (self.repTimer != nil) {
+        [self.repTimer invalidate];
+        self.repTimer = nil;
+    }
+    if (self.secondRingTimer != nil) {
         [self.secondRingTimer invalidate];
         self.secondRingTimer = nil;
     }
@@ -118,31 +138,16 @@
     [self drawThirdRing];
     [self drawSecondRing];
     [self drawFirstRing];
-
 }
 
 
 - (void) handleTimer:(NSTimer *)timer {
     if (self.timerValue >= self.totalDuaration ) { //total duation
-        [self.autoTimer invalidate];
-        self.autoTimer = nil;
-        self.timerValue = self.totalDuaration;
-        [self.secondRingTimer invalidate];
-        self.secondRingTimer = nil;
-
+        self.timerValue = 0;
         self.statusLabel.text = @"Done! Good job!";
-
+        [self reset];
     }
-
     self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.timerValue ];
-
-//    int currentRep = (int)fmod((self.timerValue- self.restTime * (self.currentSet-1) /self.repTime), self.numRep)+1;
-//    int currentSet = (int)(self.timerValue/(self.repTime * self.numRep))+1;
-//    if (currentSet == self.numSet+1 && currentRep == 1)
-//        self.statusLabel.text = @"Done! Good job!";
-//    else
-//        self.statusLabel.text = [NSString stringWithFormat:@"Rep(%d)/Set(%d)", currentRep, currentSet];
-
     self.timerValue += 0.1;
     
 }
@@ -230,8 +235,7 @@
     CGMutablePathRef pathRef = CGPathCreateMutable();
     
     float segmentSeparationAngle = 2 * M_PI * .1 / self.numRep ;
-//    float segmentSeparationAngle = M_PI / (2 * self.numRep);
-    CGFloat outerStartAngle = - M_PI_2;// + segmentSeparationAngle;
+    CGFloat outerStartAngle = - M_PI_2;
     outerStartAngle += (segmentSeparationAngle / 2.0);
     
     CGFloat outerRingAngle = (2.0 * M_PI) / (self.numRep) - segmentSeparationAngle;
@@ -285,7 +289,6 @@
     self.secondRing.frame=self.view.frame;
     self.secondRing.path=path.CGPath;
     [self.view.layer addSublayer:self.secondRing];
-    
 }
 
 - (void)drawThirdRing { //in
