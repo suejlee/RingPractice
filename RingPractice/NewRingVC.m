@@ -11,9 +11,7 @@
 @interface NewRingVC ()
 
 @property (nonatomic, retain) CAShapeLayer *firstRing;
-@property (nonatomic, retain) CAShapeLayer *firstPlusRing;
 @property (nonatomic, retain) CAShapeLayer *secondRing;
-@property (nonatomic, retain) CAShapeLayer *secondPlusRing;
 @property (nonatomic, retain) CAShapeLayer *thirdRing;
 @property (weak, nonatomic) IBOutlet UILabel *restTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numRepLabel;
@@ -28,7 +26,6 @@
 @property (nonatomic, assign) int currentRep;
 @property (nonatomic, assign) int currentSet;
 
-
 @end
 
 @implementation NewRingVC
@@ -36,9 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateLabels];
-    [self drawSecondRing];
     [self drawSecondBackgroundRing];
-    [self drawFirstRing];
     [self drawFirstRingBackgroundRing];
     
 }
@@ -59,8 +54,8 @@
 }
 
 - (IBAction)runButtonPressed:(id)sender {
-//    [self reset];
-    [self setupRings];
+    if(self.timerValue > 0) return;
+    [self drawRings];
     [self drawRingAnimation:self.firstRing withDuration:self.totalDuaration repetition:1];
     [self secondRingTimer:nil];
     self.autoTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
@@ -106,15 +101,18 @@
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
+    self.statusLabel.text = @"Stop & Reset!";
+    self.runTimeLabel.text = @"0";
     [self reset];
 }
 
 - (void)reset {
+    self.timerValue = 0;
+    self.currentRep = 0;
+    self.currentSet = 0;
     [self.firstRing removeAllAnimations];
     [self.secondRing removeAllAnimations];
     [self.thirdRing removeAllAnimations];
-    [self.firstPlusRing removeAllAnimations];
-    [self.secondPlusRing removeAllAnimations];
     [self.view.layer removeAllAnimations];
     
     if(self.autoTimer != nil) {
@@ -129,29 +127,21 @@
         [self.secondRingTimer invalidate];
         self.secondRingTimer = nil;
     }
-    
-//    for (CAShapeLayer *layer in self.view.layer.sublayers) {
-//        [layer removeFromSuperlayer];
-//    }
-//    [self setupRings];
+    [self.firstRing removeFromSuperlayer];
+    [self.secondRing removeFromSuperlayer];
+    [self.thirdRing removeFromSuperlayer];
 }
-
--(void) setupRings {
-    [self drawThirdRing];
-    [self drawSecondRing];
-    [self drawFirstRing];
-}
-
 
 - (void) handleTimer:(NSTimer *)timer {
     if (self.timerValue >= self.totalDuaration ) { //total duation
-        self.timerValue = 0;
         self.statusLabel.text = @"Done! Good job!";
+        self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.totalDuaration ];
+        self.timerValue = 0;
         [self reset];
+    } else {
+        self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.timerValue ];
+        self.timerValue += 0.1;
     }
-    self.runTimeLabel.text = [NSString stringWithFormat:@"%.1f", self.timerValue ];
-    self.timerValue += 0.1;
-    
 }
 
 
@@ -160,25 +150,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)drawFirstRing { //out
-    UIBezierPath *path=[UIBezierPath bezierPath];
-    CGRect rect=[UIScreen mainScreen].applicationFrame;
-    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
-    
-    [path addArcWithCenter:center
-                    radius:125
-                startAngle:-M_PI_2
-                  endAngle:3*M_PI_2
-                 clockwise:YES];
-    
+#pragma mark draw Rings
+
+- (void)drawRings { //out
     self.firstRing=[CAShapeLayer layer];
-    self.firstRing.path=path.CGPath;//46,169,230
-    self.firstRing.fillColor= [UIColor clearColor].CGColor;
-    self.firstRing.strokeColor=[UIColor colorWithRed:.2 green:.2 blue:.3 alpha:.5].CGColor;
+    [self drawRingWithLayer:self.firstRing
+                     radius:125
+                strokeColor:[UIColor colorWithRed:.2 green:.2 blue:.3 alpha:.5].CGColor
+                  lineWidth:15];
     
-    self.firstRing.lineWidth=15;
-    self.firstRing.frame=self.view.frame;
-    [self.view.layer addSublayer:self.firstRing];
+    self.secondRing=[CAShapeLayer layer];
+    [self drawRingWithLayer:self.secondRing
+                     radius:100
+                strokeColor:[UIColor colorWithRed:.2 green:.2 blue:.2 alpha:.5].CGColor
+                  lineWidth:15];
+
+    self.thirdRing=[CAShapeLayer layer];
+    [self drawRingWithLayer:self.thirdRing
+                     radius:80
+                strokeColor:[UIColor colorWithRed:.7 green:.7 blue:.7 alpha:1].CGColor
+                  lineWidth:3];
     
 }
 
@@ -216,23 +207,64 @@
         outerStartAngle += restAngle + runAngle;
     }
     
-    self.firstPlusRing=[CAShapeLayer layer];
-    self.firstPlusRing.fillColor=[UIColor whiteColor].CGColor;
-    self.firstPlusRing.strokeColor=[UIColor colorWithRed:0 green:0 blue:.8 alpha:.7].CGColor;
-    self.firstPlusRing.lineWidth=10;
-    self.firstPlusRing.frame=self.view.frame;
-    self.firstPlusRing.path=pathRef;
+    CAShapeLayer *firstSegmentRing = [CAShapeLayer layer];
+    
+    firstSegmentRing=[CAShapeLayer layer];
+    firstSegmentRing.fillColor=[UIColor whiteColor].CGColor;
+    firstSegmentRing.strokeColor=[UIColor colorWithRed:0 green:0 blue:.8 alpha:.7].CGColor;
+    firstSegmentRing.lineWidth=10;
+    firstSegmentRing.frame=self.view.frame;
+    firstSegmentRing.path=pathRef;
     
     CGPathRelease(pathRef);
-    [self.view.layer addSublayer:self.firstPlusRing];
+
+    
+    UIBezierPath *path2=[UIBezierPath bezierPath];
+    
+    [path2 addArcWithCenter:center
+                     radius:125
+                 startAngle:-M_PI_2
+                   endAngle:3*M_PI_2
+                  clockwise:YES];
+    
+    CAShapeLayer *firstBackgroundRingLayer = [CAShapeLayer layer];
+    firstBackgroundRingLayer=[CAShapeLayer layer];
+    firstBackgroundRingLayer.path=path2.CGPath;//46,169,230
+    firstBackgroundRingLayer.fillColor= [UIColor clearColor].CGColor;
+    firstBackgroundRingLayer.strokeColor=[UIColor colorWithRed:.2 green:.2 blue:.3 alpha:.2].CGColor;
+    firstBackgroundRingLayer.lineWidth=15;
+    firstBackgroundRingLayer.frame=self.view.frame;
+    [path2 closePath];
+    
+    
+    [self.view.layer addSublayer:firstBackgroundRingLayer];
+    [self.view.layer addSublayer:firstSegmentRing];
+    
+
 }
 
 
 - (void)drawSecondBackgroundRing {
     
-    
     CGRect rect=[UIScreen mainScreen].applicationFrame;
-    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
+    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20);
+    UIBezierPath *path2=[UIBezierPath bezierPath];
+    
+    [path2 addArcWithCenter:center
+                     radius:100
+                 startAngle:-M_PI_2
+                   endAngle:3*M_PI_2
+                  clockwise:YES];
+    
+    CAShapeLayer *secondBackgroundRingLayer = [CAShapeLayer layer];
+    
+    secondBackgroundRingLayer=[CAShapeLayer layer];
+    secondBackgroundRingLayer.path=path2.CGPath;
+    secondBackgroundRingLayer.fillColor= [UIColor clearColor].CGColor;
+    secondBackgroundRingLayer.strokeColor=[UIColor colorWithRed:.2 green:.2 blue:.3 alpha:.2].CGColor;
+    secondBackgroundRingLayer.lineWidth=15;
+    secondBackgroundRingLayer.frame=self.view.frame;
+    [path2 closePath];
     
     CGMutablePathRef pathRef = CGPathCreateMutable();
     
@@ -261,57 +293,42 @@
         outerStartAngle += (outerRingAngle + segmentSeparationAngle);
     }
     
-    self.secondPlusRing=[CAShapeLayer layer];
-    self.secondPlusRing.fillColor=[UIColor whiteColor].CGColor;
-    self.secondPlusRing.strokeColor=[UIColor colorWithRed:1 green:8 blue:8 alpha:.5].CGColor;
-    self.secondPlusRing.lineWidth=20;
-    self.secondPlusRing.frame=self.view.frame;
-    self.secondPlusRing.path=pathRef;
+    CAShapeLayer *secondSegmentRingLayer = [CAShapeLayer layer];
+    secondSegmentRingLayer=[CAShapeLayer layer];
+    secondSegmentRingLayer.fillColor=[UIColor whiteColor].CGColor;
+    secondSegmentRingLayer.strokeColor=[UIColor colorWithRed:.4 green:.4 blue:.4 alpha:.3].CGColor;
+    secondSegmentRingLayer.lineWidth=10;
+    secondSegmentRingLayer.frame=self.view.frame;
+    secondSegmentRingLayer.path=pathRef;
     
     CGPathRelease(pathRef);
-    [self.view.layer addSublayer:self.secondPlusRing];
+    
+    [self.view.layer addSublayer:secondBackgroundRingLayer];
+    [self.view.layer addSublayer:secondSegmentRingLayer];
 }
 
 
-- (void)drawSecondRing { //middle
-    UIBezierPath *path=[UIBezierPath bezierPath];
-    CGRect rect=[UIScreen mainScreen].applicationFrame;
-    CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20);
+- (void)drawRingWithLayer:(CAShapeLayer *)layer radius:(CGFloat)radius strokeColor:(CGColorRef)color lineWidth:(CGFloat) lineWidth {
     
-    [path addArcWithCenter:center
-                    radius:100
-                startAngle:-M_PI_2
-                  endAngle:3*M_PI_2
-                 clockwise:YES];
-    
-    self.secondRing=[CAShapeLayer layer];
-    self.secondRing.fillColor=[UIColor clearColor].CGColor;
-    self.secondRing.strokeColor=[UIColor colorWithRed:.3 green:.2 blue:.2 alpha:.4].CGColor;
-    self.secondRing.lineWidth=20;
-    self.secondRing.frame=self.view.frame;
-    self.secondRing.path=path.CGPath;
-    [self.view.layer addSublayer:self.secondRing];
-}
-
-- (void)drawThirdRing { //in
     UIBezierPath *path=[UIBezierPath bezierPath];
     CGRect rect=[UIScreen mainScreen].applicationFrame;
     CGPoint center = CGPointMake(rect.size.width/2,rect.size.height/2-20) ;
-    
+
     [path addArcWithCenter:center
-                    radius:80
+                    radius:radius
                 startAngle:-M_PI_2
                   endAngle:3*M_PI_2
                  clockwise:YES];
     
-    self.thirdRing=[CAShapeLayer layer];
-    self.thirdRing.path=path.CGPath;//46,169,230
-    self.thirdRing.fillColor=[UIColor clearColor].CGColor;
-    self.thirdRing.strokeColor=[UIColor colorWithRed:.7 green:.7 blue:.7 alpha:1].CGColor;
-    self.thirdRing.lineWidth=3;
-    self.thirdRing.frame=self.view.frame;
-    [self.view.layer addSublayer:self.thirdRing];
+    layer.path=path.CGPath;
+    layer.fillColor=[UIColor clearColor].CGColor;
+    layer.strokeColor=color;
+    layer.lineWidth=lineWidth;
+    layer.frame=self.view.frame;
+    [self.view.layer addSublayer:layer];
+    [path closePath];
 }
+
 
 -(void)drawRingAnimation:(CALayer*)layer withDuration:(float)duration repetition:(float)repetition
 {
