@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MainTVC : UITableViewController
-@property (strong, nonatomic) NSMutableArray *bodyPartList;
+@property (strong, nonatomic) NSMutableArray *focusAreaList;
 @end
